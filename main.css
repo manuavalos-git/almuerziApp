@@ -15,6 +15,7 @@ body div:nth-child(2){
 }
 body div:first-child{
     margin-left: 0px;
+    margin-bottom: auto;
 }
 ul {
     list-style-type: none;
@@ -27,10 +28,16 @@ ul {
     border-radius: 4px;
     margin: 30px;
     margin-left: 38px;
+    
 }
 #submit:disabled{
     background-color: #A29C9B;
     border: solid 3px #A29C9B;
+}
+#submit:active{
+    background-color: #3e8188;
+    border: solid 3px #3e8188;
+    box-shadow: 0px 0px 4px #000;
 }
 .selected{
     background-color: #00A9A5;
