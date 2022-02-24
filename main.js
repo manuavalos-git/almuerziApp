@@ -7,8 +7,18 @@ const renderItem= (item)=> {
     const element=stringToHTML(`<li data-id=${item._id}>${item.name}</li>`)
     element.addEventListener('click',() => {
         const mealsList=document.getElementById('meals-list')
+        let isSelected=element.classList.item(0)==='selected'
         Array.from(mealsList.children).forEach(x => x.classList.remove('selected'))
-        element.classList.add('selected')
+        if(isSelected){
+            element.classList.remove('selected')
+            submit.setAttribute('disabled',false);
+        }
+        else{
+            element.classList.add('selected')
+            submit.removeAttribute('disabled')
+            const mealIdInput= document.getElementById('meal-id')
+            mealIdInput.value=item._id
+        }
     })
     return element
 }
@@ -21,7 +31,6 @@ window.onload= () =>{
         mealsList.removeChild(mealsList.firstElementChild)
         const listItemsHTML= data.map(renderItem)
         listItemsHTML.forEach(element => mealsList.appendChild(element))
-        submit.removeAttribute('disabled')
     })
 
 } 

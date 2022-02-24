@@ -33,5 +33,8 @@ ul {
     border: solid 3px #A29C9B;
 }
 .selected{
-    background-color: #00A9A5
+    background-color: #00A9A5;
+}
+#meals-list li{
+    cursor:pointer;
 }
