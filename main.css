@@ -2,35 +2,51 @@ body{
     background-color: #2B333D;
 }
 #app{
-    display: flex;
+    display: block;
 }
 #app div{
     flex-grow: 1;
     background-color: #fab3a8;
-    margin: 5px;
-    margin-top: 0px;
+    margin:5px;
     border-radius: 4px;
-    min-width: 160px;
+    min-width:45vw;
+    max-width:auto;
+}
+#order{
+    text-align: center;
 }
 #orders{
     margin-right: 0px;
 }
+#orders-list{
+    text-align: center;
+    padding-left: 0px;
+    font-family: cursive;
+    font-size: clamp(2.2vw,2.5vw,2vw);
+}
+#orders-list li{
+    box-shadow: #000 0px 2px 8px;
+    padding-top: 15px;
+    padding-bottom: 15px;
+}
 #meals{
-    margin-left: 0px;
     margin-bottom: auto;
+    height: min-content;
 }
 ul {
     list-style-type: none;
 }
 #submit{
-    background-color: #55C1CE;
+    background-color: #4d5866;
     color: #fff;
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    border: solid 3px #55C1CE;
+    font-size: clamp(2vw,2.5vw,2.5vw);
+    font-family: sans-serif;
+    border: solid 3px #4d5866;
     border-radius: 4px;
-    margin: 30px;
-    margin-left: 38px;
-    
+    padding-left:20px;
+    padding-right: 20px;
+    margin-top: 30px;
+    margin-bottom: 30px;
 }
 #submit:disabled{
     background-color: #A29C9B;
@@ -42,10 +58,22 @@ ul {
     box-shadow: 0px 0px 4px #000;
 }
 .selected{
-    background-color: #00A9A5;
+    background-color:#f3c3bc ;
+    box-shadow: #0000007c 0px 0px 8px;
+    border-radius: 4px;
+    font-size: clamp(3.6vw,2.5vw,3.6vw);
 }
 #meals-list li{
     cursor:pointer;
+    width: 40vw;
+    margin-left: auto;
+    margin-right: auto;
+}
+#meals-list{
+    text-align: center;
+    padding-left: 0px;
+    font-family: cursive;
+    font-size: clamp(3vw,2.5vw,1.5vw);
 }
 #app .form-main{
     max-width: 400px;
@@ -62,7 +90,7 @@ ul {
     height: 100%;
 }
 form input{
-    width: 100%;
+    width: 98%;
     height: 25px;
     border-radius: 4px;
     border:solid 1px ;
@@ -70,15 +98,20 @@ form input{
     color: rgb(63, 58, 58)
 }
 .boton-form{
-    margin-left: 25%;
-    width: 50%;
-    margin-top: 10px;
-    height: inherit;
+    width: 20%;
+    margin-top: 15px;
+    color: #000;
     background-color: #55C1CE;
-    color: #fff;
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: 2px;
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     border: solid 3px #55C1CE;
-}.boton-form:disabled{
+}
+.boton-container{
+    text-align: center;
+}
+.boton-form:disabled{
     background-color: #A29C9B;
     border: solid 3px #A29C9B;
 }
@@ -88,7 +121,34 @@ form input{
     box-shadow: 0px 0px 4px #000;
 }
 .form-title{
+    color: #434952;
     text-align: center;
-    font-size: 25px;
+    font-size: clamp(25px,2.5vw,30px);
+    text-shadow: #4d5866 0px 1px 8px;
     margin: 5px
+}
+div h2{
+    color:#4d5866;
+    font-family: sans-serif;
+    letter-spacing: 0.4em;
+    font-size: 5vw;
+    text-align: center;
+    text-shadow: #0000007c 0px 0px 6px ;
+}
+.c-boton-initsesion{
+    background-color: #55C1CE;
+    max-height: 40px;
+    padding-left: 10px;
+    padding-right: 10px;
+    border: solid #55C1CE;
+    border-radius: 4px;
+    font-size: clamp(10px,12px,12px);
+    font-weight: 600;
+    letter-spacing: 1px;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    margin-bottom: 15px;
+    margin-left: 5px;
+}
+.container-meals-orders{
+    display: flex;
 }

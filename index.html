@@ -13,8 +13,11 @@
     </body>
 
     <template id="login-view">
+        <form id="form-boton-initsesion">
+            <button class="c-boton-initsesion" id="boton-initsesion" >Iniciar sesión</button>
+        </form>
         <div class="form-main">
-            <p class="form-title">Inicia sesión</p>
+            <p id="title-log-reg" class="form-title">Registrate</p>
             <form id="login-form" class="login-form">
                 <div>
                     <p>Email</p>
@@ -22,27 +25,34 @@
                 <div>
                     <p>Contraseña</p>
                     <input id="password" type="password" placeholder="Contraseña"/></div>
-                <div>
+                <div class="boton-container">
                     <input class="boton-form" type="submit" value='Enviar'/>
                 </div>
             </form>
         </div>
     </template>    
     <template id="orders-view">
-        <div id="meals">
-            <ul id="meals-list">
-                <p>Cargando...</p>
-            </ul>
-            <form id="order">
-                <input id="meal-id" type="hidden"/>
-                <button id="submit" disabled>Enviar</button>
-            </form>
-        </div>
-        <div id="orders">
-            <ul id="orders-list">
-                <p>Cargando...</p>
-            </ul>
-        </div>
+        <form id="form-boton-closesesion">
+            <button class="c-boton-initsesion" id="boton-closesesion" >Cerrar sesión</button>
+        </form>
+        <section class="container-meals-orders">
+            <div id="meals">
+                <h2>PLATOS</h2>
+                <ul id="meals-list">
+                    <p>Cargando...</p>
+                </ul>
+                <form id="order">
+                    <input id="meal-id" type="hidden"/>
+                    <button id="submit" disabled>Enviar</button>
+                </form>
+            </div>
+            <div id="orders">
+                <h2>ORDENES</h2>
+                <ul id="orders-list">
+                    <p>Cargando...</p>
+                </ul>
+            </div>
+        </section>    
     </template>
 
     <script src='main.js'></script>

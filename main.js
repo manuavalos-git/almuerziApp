@@ -1,5 +1,4 @@
 let mealsState=[]
-let ruta='login'// register,orders,login
 let user={}
 
 const stringToHTML=(string)=>{
@@ -28,8 +27,17 @@ const renderItem= (item)=> {
 }
 const renderOrder=(order,meals)=>{
     const meal=meals.find(meal=>meal._id===order.meal_id)
-    const element=stringToHTML(`<li data-id=${order._id}>${meal.name}-${order.user_id}</li>`)
+    const element=stringToHTML(`<li data-id=${order._id}>${meal.name}\n[${order.user_id}]</li>`)
     return element
+}
+const controlCloseSesion=()=>{
+    const botonClose= document.getElementById('form-boton-closesesion')
+    botonClose.onsubmit=(evento)=>{
+        evento.preventDefault()
+        localStorage.clear()
+        user={}
+        renderRegister()
+    }
 }
 const controlSubmit=()=>{
     const orderForm= document.getElementById('order')
@@ -39,10 +47,9 @@ const controlSubmit=()=>{
         submit.setAttribute('disabled',true)
         const mealId= document.getElementById('meal-id')
         const mealIdValue=mealId.value
-        // const email=user.email.value
         const order={
             meal_id:mealIdValue,
-            user_id:"picnaclk"
+            user_id:user._id
         }
         fetch("https://almuezi.vercel.app/api/orders",{
             method: 'POST',
@@ -50,8 +57,9 @@ const controlSubmit=()=>{
                     'Content-Type': 'application/json',
                     authorization:localStorage.getItem('token')
             },
-            body: JSON.stringify(order),
-        }).then(x=>x.json())
+            body: JSON.stringify(order)
+        })
+        .then(x=>x.json())
         .then(response=>{
             const renderedOrder=renderOrder(response,mealsState)
             const ordersList= document.getElementById('orders-list')
@@ -83,7 +91,7 @@ const controlDatos=()=>{
 const renderOrders=()=>{
     const orderView= document.getElementById('orders-view')
     document.getElementById('app').innerHTML=orderView.innerHTML
-
+    controlCloseSesion()
     controlDatos()
     controlSubmit()
 }
@@ -93,12 +101,61 @@ const renderApp=()=>{
         user=JSON.parse(localStorage.getItem('user'))
        return renderOrders()
     }
-    renderLogin()
+    renderRegister()
+}
+const renderRegister=()=>{
+    const registerView= document.getElementById('login-view')
+    document.getElementById('app').innerHTML=registerView.innerHTML
+    const textTitle=document.getElementById("title-log-reg")
+    textTitle.textContent='Registrate'
+
+    const nameBotonInitSes=document.getElementById("boton-initsesion")
+    nameBotonInitSes.textContent='Iniciar sesión'
+
+    const botonInitSes= document.getElementById('form-boton-initsesion')
+    botonInitSes.onsubmit=(evento)=>{
+        evento.preventDefault()
+        renderLogin()
+    }
+
+    const registerForm= document.getElementById('login-form')
+    registerForm.onsubmit=(evento)=>{
+        evento.preventDefault()
+        const email=document.getElementById('email').value
+        const password= document.getElementById('password').value
+        
+        fetch("https://almuezi.vercel.app/api/auth/register",{
+        method: 'POST',
+        headers: {
+        'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({email,password})
+        }).then(x=> x.json())
+        .then(response=>{  
+            if(response.resp==='Usuario ya existe'){
+                alert('Este usuario ya existe,Inicia sesión')
+            }
+            else if(response.resp==='Usuario creado con exito'){
+                renderLogin()
+            }    
+        })
+    }    
 }
 const renderLogin=()=>{
     const loginView= document.getElementById('login-view')
     document.getElementById('app').innerHTML=loginView.innerHTML
+    const textTitle=document.getElementById("title-log-reg")
+    textTitle.textContent='Inicia sesión'
 
+    const nameBotonInitSes=document.getElementById("boton-initsesion")
+    nameBotonInitSes.textContent='Registrate'
+
+    const botonInitSes= document.getElementById('form-boton-initsesion')
+    botonInitSes.onsubmit=(evento)=>{
+        evento.preventDefault()
+        renderRegister()
+    }
+    
     const loginForm= document.getElementById('login-form')
     loginForm.onsubmit=(evento)=>{
         evento.preventDefault()
@@ -114,7 +171,6 @@ const renderLogin=()=>{
         }).then(x=> x.json())
         .then(response=>{
             localStorage.setItem('token',response.token)
-            ruta='orders'
             return response.token
         })
         .then(token=>{
