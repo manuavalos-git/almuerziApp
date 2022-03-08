@@ -21,12 +21,15 @@
             <form id="login-form" class="login-form">
                 <div>
                     <p>Email</p>
-                    <input id="email"placeholder="Email"/></div>
+                    <input id="email" required placeholder="Email"/>
+                </div>
                 <div>
                     <p>Contraseña</p>
-                    <input id="password" type="password" placeholder="Contraseña"/></div>
+                    <input id="password" type="password" required placeholder="Contraseña"/>
+                </div>
                 <div class="boton-container">
                     <input class="boton-form" type="submit" value='Enviar'/>
+                    <p id="aviso"></p>
                 </div>
             </form>
         </div>
@@ -43,7 +46,7 @@
                 </ul>
                 <form id="order">
                     <input id="meal-id" type="hidden"/>
-                    <button id="submit" disabled>Enviar</button>
+                    <button id="submit" disabled>Agregar orden</button>
                 </form>
             </div>
             <div id="orders">

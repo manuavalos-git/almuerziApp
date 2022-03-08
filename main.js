@@ -123,23 +123,58 @@ const renderRegister=()=>{
         evento.preventDefault()
         const email=document.getElementById('email').value
         const password= document.getElementById('password').value
-        
-        fetch("https://almuezi.vercel.app/api/auth/register",{
-        method: 'POST',
-        headers: {
-        'Content-Type': 'application/json'
-        },
-        body: JSON.stringify({email,password})
-        }).then(x=> x.json())
-        .then(response=>{  
-            if(response.resp==='Usuario ya existe'){
-                alert('Este usuario ya existe,Inicia sesión')
-            }
-            else if(response.resp==='Usuario creado con exito'){
-                renderLogin()
-            }    
-        })
+
+        if(validationRegister()){
+            fetch("https://almuezi.vercel.app/api/auth/register",{
+                method: 'POST',
+                headers: {
+                'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({email,password})
+                }).then(x=> x.json())
+                .then(response=>{  
+                    if(response.resp==='Usuario ya existe'){
+                        alert('Este usuario ya existe,Inicia sesión')
+                    }
+                    else if(response.resp==='Usuario creado con exito'){
+                        const aviso= document.getElementById('aviso')
+                        aviso.innerHTML="¡Usuario registrado con exito!"
+                        const email= document.getElementById('email')
+                        const password= document.getElementById('password')
+                        email.value=""
+                        password.value=""
+                    }    
+                })
+        }
+        else{    
+
+        }
     }    
+}
+const validationRegister=()=>{
+    const email= document.getElementById('email')
+    const password= document.getElementById('password')
+    const aviso= document.getElementById('aviso')
+
+    aviso.innerHTML=""
+    let warnings=""
+    let assert= true
+    let regexPassword=/^(?=\w*\d)(?=\w*[A-Z])(?=\w*[a-z])\S{8,16}$/
+    let regexEmail=/^([\da-z_\.-]+)@([\da-z\.-]+)\.([a-z\.]{2,6})$/
+    if(!regexEmail.test (email.value)){
+        warnings +=`El email no es valido <br>`
+        assert= false
+    }    
+    if(!regexPassword.test(password.value)){
+        warnings +=`La contraseña no es valida <br>`
+        alert(`La contraseña debe tener al entre 8 y 16 caracteres, al menos un dígito, al menos una minúscula y al menos una mayúscula.NO puede tener otros símbolos.`)
+        assert= false
+    }
+    if(!assert){
+        aviso.innerHTML=warnings
+    }
+    return assert
+
 }
 const renderLogin=()=>{
     const loginView= document.getElementById('login-view')
@@ -170,6 +205,9 @@ const renderLogin=()=>{
         body: JSON.stringify({email,password})
         }).then(x=> x.json())
         .then(response=>{
+            if(response.token===undefined){
+                throw new Error("token no encontrado")
+            }
             localStorage.setItem('token',response.token)
             return response.token
         })
@@ -187,6 +225,10 @@ const renderLogin=()=>{
             localStorage.setItem('user',JSON.stringify(fetchedUser))
             user=fetchedUser
             renderOrders()
+        })
+        .catch(error=>{
+            const aviso= document.getElementById('aviso')
+            aviso.innerHTML="Email y/o contaseña incorrecta!!!"
         })
     }
 }

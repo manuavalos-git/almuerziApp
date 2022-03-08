@@ -152,3 +152,7 @@ div h2{
 .container-meals-orders{
     display: flex;
 }
+#aviso{
+   color:#e96161; 
+   font-size: 1em;
+}
