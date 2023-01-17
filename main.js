@@ -51,7 +51,7 @@ const controlSubmit=()=>{
             meal_id:mealIdValue,
             user_id:user._id
         }
-        fetch("https://almuerziapi-production.up.railway.app/api/orders",{
+        fetch("https://almuerzibackend-production.up.railway.app/api/orders",{
             method: 'POST',
             headers: {
                     'Content-Type': 'application/json',
@@ -69,7 +69,7 @@ const controlSubmit=()=>{
     }
 }
 const controlDatos=()=>{
-    fetch("https://almuerziapi-production.up.railway.app/api/meals")
+    fetch("https://almuerzibackend-production.up.railway.app/api/meals")
     .then(response => response.json())
     .then(data => {
         mealsState=data
@@ -78,7 +78,7 @@ const controlDatos=()=>{
         mealsList.removeChild(mealsList.firstElementChild)
         const listItemsHTML= data.map(renderItem)
         listItemsHTML.forEach(element => mealsList.appendChild(element))
-        fetch("https://almuerziapi-production.up.railway.app/api/orders")
+        fetch("https://almuerzibackend-production.up.railway.app/api/orders")
         .then(response=> response.json())
         .then(dataOrder=>{
             const ordersList= document.getElementById('orders-list')
@@ -125,7 +125,7 @@ const renderRegister=()=>{
         const password= document.getElementById('password').value
 
         if(validationRegister()){
-            fetch("https://almuerziapi-production.up.railway.app/api/auth/register",{
+            fetch("https://almuerzibackend-production.up.railway.app/api/auth/register",{
                 method: 'POST',
                 headers: {
                 'Content-Type': 'application/json'
@@ -197,7 +197,7 @@ const renderLogin=()=>{
         const email=document.getElementById('email').value
         const password= document.getElementById('password').value
         
-        fetch("https://almuerziapi-production.up.railway.app/api/auth/login",{
+        fetch("https://almuerzibackend-production.up.railway.app/api/auth/login",{
         method: 'POST',
         headers: {
         'Content-Type': 'application/json'
@@ -212,7 +212,7 @@ const renderLogin=()=>{
             return response.token
         })
         .then(token=>{
-            return fetch("https://almuerziapi-production.up.railway.app/api/auth/me",{
+            return fetch("https://almuerzibackend-production.up.railway.app/api/auth/me",{
                 method:'GET',
                 headers:{
                     'Content-Type':'application/json',
