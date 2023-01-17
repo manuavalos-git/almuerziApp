@@ -51,7 +51,7 @@ const controlSubmit=()=>{
             meal_id:mealIdValue,
             user_id:user._id
         }
-        fetch("https://almuerziapi-production.up.railway.app//api/orders",{
+        fetch("https://almuerziapi-production.up.railway.app/api/orders",{
             method: 'POST',
             headers: {
                     'Content-Type': 'application/json',
@@ -69,7 +69,7 @@ const controlSubmit=()=>{
     }
 }
 const controlDatos=()=>{
-    fetch("https://almuerziapi-production.up.railway.app//api/meals")
+    fetch("https://almuerziapi-production.up.railway.app/api/meals")
     .then(response => response.json())
     .then(data => {
         mealsState=data
